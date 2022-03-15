@@ -1,10 +1,11 @@
 
 
-
+$color: green;
 
 
 .app {
   h1{
+    color: $color;
     text-transform: lowercase;  
   }
   
