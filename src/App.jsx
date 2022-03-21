@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.scss';
 import Card from './components/card';
 import ColorBox from './components/colorBox';
+import Pagination from './components/Pagination';
 import PostList from './components/PostList';
 import TodoForm from './components/todoForm';
 import TodoList from './components/todoList';
@@ -14,6 +15,15 @@ function App() {
     {id:3,title: 'ối dồi ôi sao lại đẹp trai thế ạ'},
   ]);
   const [postList,setPostLit] = useState([]);
+
+  const [pagination,setPagination] = useState([
+    {
+      page:1,
+      limit:10,
+      totalRows:50,
+    }
+
+  ])
   useEffect ( () =>{
     async function fetchPostList(){
      try{
@@ -31,7 +41,11 @@ function App() {
      }
      }
      fetchPostList();
-  },[])
+  },[]);
+  const handlePageChange = (newPage) =>{
+    const paginations = [{page:newPage,limit:10,totalRows:50}];
+    setPagination(paginations);
+  }
   const handleTodoClick = (todo) => {
     console.log(todo);
     const index = todoList.findIndex(x => x.id == todo.id);
@@ -59,9 +73,9 @@ function App() {
 
   const dataCards = [
     {id:1,linkSong:'123123',viewSong:'100.000',imgSong:'',nameSong:'Muộn Rồi Mà Sao Còn',authorSong:'Sơn Tùng'},
-    {id:2,linkSong:'123123',viewSong:'100.000',imgSong:'',nameSong:'Muộn Rồi Mà Sao Còn',authorSong:'Sơn Tùng'},
-    {id:3,linkSong:'123123',viewSong:'100.000',imgSong:'',nameSong:'Muộn Rồi Mà Sao Còn',authorSong:'Sơn Tùng'},
-    {id:4,linkSong:'123123',viewSong:'100.000',imgSong:'',nameSong:'Muộn Rồi Mà Sao Còn',authorSong:'Sơn Tùng'}
+    {id:2,linkSong:'123123',viewSong:'200.000',imgSong:'',nameSong:'Có Chắc Yêu Là Đây',authorSong:'Sơn Tùng'},
+    {id:3,linkSong:'123123',viewSong:'300.000',imgSong:'',nameSong:'Chúng Ta Của Hiện Tại',authorSong:'Sơn Tùng'},
+    {id:4,linkSong:'123123',viewSong:'400.000',imgSong:'',nameSong:'Lạc Trôi',authorSong:'Sơn Tùng'}
   ]
   return (
    <div className="app">
@@ -78,8 +92,17 @@ function App() {
             infoCard={dataCard}
         />
       })} */}
-      <PostList posts={postList}/>
-     
+      {/*<PostList posts={postList}/>
+      <Pagination  
+        pagination={pagination}
+        onPageChange={handlePageChange}
+      />*/}
+
+      
+      <Card infoCard={dataCards}/>
+    
+
+      
    </div>
   );
 }
